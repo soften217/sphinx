@@ -10,10 +10,13 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-
+/*
+Route::get('/', function () { if(DB::connection()->getDatabaseName()) { echo "Yes! successfully connected to the DB: " . DB::connection()->getDatabaseName(); } });
+*/
 Route::get('/', function () {
     return view('welcome');
 });
+    
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +29,17 @@ Route::get('/', function () {
 |
 */
 
-Route::group(['middleware' => ['web']], function () {
-    //
+Route::group(['middleware' => 'web'], function () {
+  Route::auth(); // must be inside 'web'
+  Route::get('home','HomeController@index');
+ /* 
+  [
+     'middleware' => ['auth', 'roles'], //use the roles middleware
+     'uses' => 'HomeController@index',
+     'roles' => ['admin', 'client'] // only admin and client roles are allowed
+]);
+*/
 });
+
+
+    
