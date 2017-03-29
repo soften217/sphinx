@@ -8,7 +8,10 @@
                 <div class="panel-heading">Dashboard</div>
 
                 <div class="panel-body">
+<<<<<<< HEAD
                     This is the home page after logging in.
+=======
+>>>>>>> origin/codeanywhere
                     You are logged in!
                 </div>
             </div>
