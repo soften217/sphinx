@@ -16,6 +16,10 @@ Route::get('/', function () { if(DB::connection()->getDatabaseName()) { echo "Ye
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/bulletin', function () {
+    return view('bulletin/index');
+});
 /*
 |--------------------------------------------------------------------------
 | Application Routes
