@@ -5,10 +5,10 @@
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
-                <div class="panel-heading">Help</div>
+                <div class="panel-heading">Sample Group</div>
 
                 <div class="panel-body">
-                    This is the GET HELP page.
+                    This is a sample STUDENT Group page.
                 </div>
             </div>
         </div>

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 
-class HomeController extends Controller
+class QuestionBankController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -26,12 +26,12 @@ class HomeController extends Controller
     {
         if (auth()->user()->isFaculty == 1) 
         {
-            return view('faculty/home');
+            return view('faculty/questionbank');
         }
        else
         {
             return view('student/home');
         }
     }
-    
+
 }

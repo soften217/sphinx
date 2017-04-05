@@ -5,10 +5,10 @@
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
-                <div class="panel-heading">Help</div>
+                <div class="panel-heading">Join Group</div>
 
                 <div class="panel-body">
-                    This is the GET HELP page.
+                    PLEASE ENTER JOIN CODE:
                 </div>
             </div>
         </div>

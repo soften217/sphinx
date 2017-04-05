@@ -1,7 +1,11 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Sphinx</title>
 
-@section('content')
-<style>
+        <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
+
+        <style>
             html, body {
                 height: 100%;
             }
@@ -15,7 +19,7 @@
                 font-family: 'Lato';
             }
 
-            .container1 {
+            .container {
                 text-align: center;
                 display: table-cell;
                 vertical-align: middle;
@@ -30,14 +34,9 @@
                 font-size: 96px;
             }
         </style>
-
-<div class="container">
-    <div class="row">
-        <div class="col-md-10 col-md-offset-1">
-            <div class="panel panel-default">
-                <div class="panel-heading">Welcome</div>
-
-                <div class="panel-body container1">
+    </head>
+    <body>
+        <div class="container">
             <div class="content">
                 <div class="title">Sphinx Development</div>
                   <p style="font-size:24;">
@@ -53,10 +52,5 @@
               </ul>
             </div>
         </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-@endsection
+    </body>
+</html>
