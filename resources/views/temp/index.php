@@ -1,19 +1,4 @@
-@extends('layouts.app')
-@section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-10 col-md-offset-1">
-            <div class="panel panel-default">
-                <div class="panel-heading">Calendar</div>
-
-                <div class="panel-body">
-                      
-                    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-                    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
-                    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.js"></script>
-                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.css"/>
-
-                    <?php
+<?php
 /* Set the default timezone */
 date_default_timezone_set("America/Montreal");
 
@@ -64,10 +49,3 @@ $blank = date('w', strtotime("{$year}-{$month}-01"));
 		<?php endfor; ?>
 	</tr>
 </table>
-                    
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-@endsection
