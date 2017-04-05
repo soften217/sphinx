@@ -8,8 +8,8 @@
                 <div class="panel-heading">Dashboard</div>
 
                 <div class="panel-body">
-                    This is the FACULTY home page after logging in.
-                    You are logged in!
+                  This is the FACULTY home page after logging in.
+                  You are logged in!
                 </div>
             </div>
         </div>

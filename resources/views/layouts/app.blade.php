@@ -20,7 +20,7 @@
     body {
       font-family: 'Lato';
     }
-    
+
     .fa-btn {
       margin-right: 6px;
     }
@@ -51,10 +51,10 @@
         <ul class="nav navbar-nav">
           <li><a href="{{ url('/home') }}">Home</a></li>
         </ul>
-        
+
         <ul class="nav navbar-nav">
           @if (Auth::guest())
-          
+
           @else
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
