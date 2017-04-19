@@ -20,8 +20,11 @@ Route::get('/', function () {
 Route::get('/bulletin', function () {
     return view('bulletin/index');
 });
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> a15eb863e53829e0b2906a653cadd04f30663d66
 /*
 |--------------------------------------------------------------------------
 | Application Routes
