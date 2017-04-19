@@ -16,6 +16,12 @@ Route::get('/', function () { if(DB::connection()->getDatabaseName()) { echo "Ye
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/bulletin', function () {
+    return view('bulletin/index');
+});
+
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -30,13 +36,21 @@ Route::get('/', function () {
 Route::group(['middleware' => 'web'], function () {
   Route::auth(); // must be inside 'web'
   Route::get('home','HomeController@index');
+  
   Route::get('group','GroupController@index');
+  Route::get('group/{id}', 'GroupController@show');
+  
+  Route::get('archive/{id}', 'GroupController@archive');
+  
   Route::get('addgroup','AddGroupController@index');
+  Route::post('addgroup', 'AddGroupController@add');
+  
   Route::get('questionbank','QuestionBankController@index');
   Route::get('calendar','CalendarController@index');
-  
-  Route::get('/gethelp', function () {
-    return view('gethelp');
+  Route::get('help','sendmail@index');
+  Route::post('help', 'sendmail@send');
+  Route::get('mailtest', function() {
+    return view('mail');
   });
 //   Route::get('/calendar', function () {
 //     return view('calendar');  

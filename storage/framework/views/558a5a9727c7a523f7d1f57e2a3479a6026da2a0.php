@@ -1,16 +1,14 @@
-@extends('layouts.app')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 <div class="container">
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
-                <div class="panel-heading">{{$id}}</div>
+                <div class="panel-heading"><?php echo e($id); ?></div>
 
                 <div class="panel-body">
                     This is a sample FACULTY Group page.
                     <br><br><br><br><br>
-                    JOIN CODE: <b><u>{{$code}}</u></b>.
+                    JOIN CODE: <b><u><?php echo e($code); ?></u></b>.
                 </div>
                 <div class="panel-body" style="text-align:right">
                     
@@ -25,4 +23,6 @@
     </div>
   
 </div>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
