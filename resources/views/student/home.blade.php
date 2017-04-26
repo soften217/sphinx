@@ -22,7 +22,7 @@
                 <div class="panel-heading">Calendar</div>
 
                 <div class="panel-body">
-                      
+
                     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
                     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
                     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.js"></script>
@@ -79,15 +79,11 @@
                             <?php endfor; ?>
                           </tr>
                         </table>
-                    
+
                 </div>
-              1
             </div>
-      2  
-      </div>
-      3
+        </div>
     </div>
-  4
 </div>
 
 <div class="container">
@@ -97,7 +93,7 @@
                 <div class="panel-heading">Reminders</div>
 
                 <div class="panel-body">
-                      
+
                    <div class="wrap">
   <div class="task-list">
      <ul>
@@ -110,7 +106,7 @@
     $con = new mysqli($server, $db_user, $db_pass);
     mysqli_connect($server, $db_user, $db_pass) or die("Could not connect to server!");
     mysqli_select_db($con, $db_name) or die("Could not connect to database!");
-       
+
     $query = mysqli_query($con, "SELECT * FROM tasks ORDER BY date ASC, time ASC");
     $numrows = mysqli_num_rows($query);
 
@@ -127,7 +123,7 @@
                     <td>'.$task_name.'</td>
                     <td>'.$task_date.'</td>
                     <td>'.$task_time.'</td>
-        
+
      </tr>';
   }
       echo '</table>';
@@ -136,7 +132,7 @@
      </ul>
  </div>
     </div>
-                    
+
                 </div>
             </div>
         </div>

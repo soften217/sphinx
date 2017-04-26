@@ -20,8 +20,6 @@ Route::get('/', function () {
 Route::get('/bulletin', function () {
     return view('bulletin/index');
 });
-
-
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -36,21 +34,21 @@ Route::get('/bulletin', function () {
 Route::group(['middleware' => 'web'], function () {
   Route::auth(); // must be inside 'web'
   Route::get('home','HomeController@index');
-  
+
   Route::get('group','GroupController@index');
   Route::get('group/{id}', 'GroupController@show');
-  
+
   Route::get('archive/{id}', 'GroupController@archive');
-  
+
   Route::get('addgroup','AddGroupController@index');
   Route::post('addgroup', 'AddGroupController@add');
-  
+
   Route::get('questionbank','QuestionBankController@index');
   Route::get('formquestion','FormQuestionController@index');
-  
-  
+
+
   Route::post('formquestion', 'FormQuestionController@form');
-  
+
   Route::get('calendar','CalendarController@index');
   Route::get('help','sendmail@index');
   Route::post('help', 'sendmail@send');
@@ -58,9 +56,9 @@ Route::group(['middleware' => 'web'], function () {
     return view('mail');
   });
 //   Route::get('/calendar', function () {
-//     return view('calendar');  
+//     return view('calendar');
 //   });
- /* 
+ /*
   [
      'middleware' => ['auth', 'roles'], //use the roles middleware
      'uses' => 'HomeController@index',
@@ -68,7 +66,3 @@ Route::group(['middleware' => 'web'], function () {
 ]);
 */
 });
-
-
-
-    
