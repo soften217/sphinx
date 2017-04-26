@@ -8,7 +8,17 @@
                 <div class="panel-heading">Question Bank</div>
 
                 <div class="panel-body">
-                    This is the QUESTION BANK.
+                     <?php
+                      $questions = DB::table('questions')->where('id', '<=', '100')->get();
+              
+                              foreach ($questions as $question) {
+                                    $course = $question->course;
+                                    $type = $question->type;
+                                    $id = $question->id;
+                                
+                                    echo '<a href="/formquestion">'.$course.'-'.$type.'-'.$id.'</a><br>';
+                              }
+                  ?>
                 </div>
             </div>
         </div>

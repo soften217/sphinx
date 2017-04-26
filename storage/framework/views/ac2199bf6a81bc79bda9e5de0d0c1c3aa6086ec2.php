@@ -1,11 +1,5 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Sphinx</title>
-
-        <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
-
-        <style>
+<?php $__env->startSection('content'); ?>
+<style>
             html, body {
                 height: 100%;
             }
@@ -19,7 +13,7 @@
                 font-family: 'Lato';
             }
 
-            .container {
+            .container1 {
                 text-align: center;
                 display: table-cell;
                 vertical-align: middle;
@@ -34,9 +28,14 @@
                 font-size: 96px;
             }
         </style>
-    </head>
-    <body>
-        <div class="container">
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="panel panel-default">
+                <div class="panel-heading">Welcome</div>
+
+                <div class="panel-body container1">
             <div class="content">
                 <div class="title">Sphinx Development</div>
                   <p style="font-size:24;">
@@ -52,5 +51,12 @@
               </ul>
             </div>
         </div>
-    </body>
-</html>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
