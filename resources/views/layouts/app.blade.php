@@ -20,7 +20,7 @@
     body {
       font-family: 'Lato';
     }
-    
+
     .fa-btn {
       margin-right: 6px;
     }
@@ -51,10 +51,10 @@
         <ul class="nav navbar-nav">
           <li><a href="{{ url('/home') }}">Home</a></li>
         </ul>
-        
+
         <ul class="nav navbar-nav">
           @if (Auth::guest())
-          
+
           @else
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -62,7 +62,25 @@
             </a>
 
             <ul class="dropdown-menu" role="menu">
-                <li><a href="{{ url('/group') }}"><i class="fa fa-btn fa-users"></i>Sample Group</a></li>
+              
+                <?php
+                      $user_groups = DB::table('user_group')->where('user_id', '=', auth()->user()->id)->get();
+              
+                      foreach ($user_groups as $user_group) {
+                            $groups = DB::table('groups')->where('id', '=', $user_group->group_id)->get();
+              
+                              foreach ($groups as $group) {
+                                    $id = $group->id;
+                                    $isArchived = $group->isArchived;
+                                
+                                    if($isArchived==0)
+                                    {
+                                      echo '<li><a href="/group/'.$id.'"><i class="fa fa-btn fa-users"></i>'.$id.'</a></li>';
+                                    }
+                              }
+                      }
+                  ?>
+              
                 @if (auth()->user()->isFaculty == 1)
                 <li><a href="{{ url('/addgroup') }}"><i class="fa fa-btn fa-plus"></i>Create New Group..</a></li>
                 @else
@@ -71,7 +89,15 @@
              </ul>
           </li>
             @if (auth()->user()->isFaculty == 1)
-            <li><a href="{{ url('/questionbank') }}">Question Bank</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                Question Bank <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu" role="menu">
+                <li><a href="{{ url('/formquestion') }}"><i class="fa fa-btn fa-plus"></i>Create New Questions</a></li>
+                <li><a href="{{ url('/questionbank') }}"><i class="fa fa-btn fa-plus"></i>Manage Questions</a></li>
+             </ul>
+          </li>  
             @else
             @endif
           @endif
@@ -90,7 +116,7 @@
                             </a>
 
             <ul class="dropdown-menu" role="menu">
-              <li><a href="{{ url('/gethelp') }}"><i class="fa fa-btn fa-question-circle"></i>Help</a></li>
+              <li><a href="{{ url('/help') }}"><i class="fa fa-btn fa-question-circle"></i>Help</a></li>
               <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
             </ul>
           </li>
