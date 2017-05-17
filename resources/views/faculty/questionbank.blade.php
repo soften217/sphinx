@@ -8,7 +8,35 @@
                 <div class="panel-heading">Question Bank</div>
 
                 <div class="panel-body">
-                    This is the QUESTION BANK.
+                      <table>
+                      <tr>
+                       <th width=20%>Course </th>  
+                        <th width=20%>Type</th> 
+                         <th width=10%>ID</th> 
+                        <th width=25%>Edit</th>
+                        <th width=25%>Delete</th>
+                      </tr>
+                        
+                    
+                     <?php
+                      $questions = DB::table('questions')->where('isArchived', '!=', '1')->get();
+              
+                  
+                              foreach ($questions as $question) {
+                                    $course = $question->course;
+                                    $type = $question->type;
+                                    $id = $question->id;
+                  
+                                    echo '<tr> 
+                                    <td> '.$course .' </td>
+                                    <td> '.$type .' </td>
+                                    <td> '.$id .' </td>
+                                    <td><a href="/editquestion/' .$id. '">EDIT</a></td>
+                                    <td><a href="/editquestion/' .$id. '/delete">DELETE</a></td>
+                                    </tr>';
+                              }
+                  ?>
+                   </table>
                 </div>
             </div>
         </div>

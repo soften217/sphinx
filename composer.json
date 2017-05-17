@@ -9,7 +9,8 @@
         "laravel/framework": "5.2.*",
         "laravelcollective/html": "5.2.*",
          "cartalyst/sentry": "2.1.*",
-        "maddhatter/laravel-fullcalendar": "^1.2"
+        "maddhatter/laravel-fullcalendar": "^1.2",
+        "uxweb/sweet-alert": "^1.4"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
