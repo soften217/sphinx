@@ -79,6 +79,7 @@
                         </table>
                     
                 </div>
+<<<<<<< HEAD
               1
             </div>
       2  
@@ -86,6 +87,11 @@
       3
     </div>
   4
+=======
+            </div>
+        </div>
+    </div>
+>>>>>>> 2122ce65bcb88e274b35a1b6670bd7a117a259ea
 </div>
 
 <div class="container">

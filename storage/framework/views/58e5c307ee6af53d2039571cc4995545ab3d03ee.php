@@ -12,6 +12,7 @@
         </div>
     </div>
 </div>
+<<<<<<< HEAD
 <div class="container">
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
@@ -85,5 +86,7 @@
         }
     }
 </script>
+=======
+>>>>>>> 2122ce65bcb88e274b35a1b6670bd7a117a259ea
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

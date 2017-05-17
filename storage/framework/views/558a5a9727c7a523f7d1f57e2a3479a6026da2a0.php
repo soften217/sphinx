@@ -11,6 +11,7 @@
                     JOIN CODE: <b><u><?php echo e($code); ?></u></b>.
                 </div>
                 <div class="panel-body" style="text-align:right">
+<<<<<<< HEAD
                   
                   <script>
                   function deletearchive(){
@@ -93,6 +94,12 @@
                   
                   <button onclick="createQuiz()" value="CREATE">Create New Questionnaire</button>
                   
+=======
+                    
+                  <?php
+                    echo '<a href="/archive/'.$id.'"><i class="fa fa-btn fa-trash"></i>Archive this group</a>';
+                  ?>
+>>>>>>> 2122ce65bcb88e274b35a1b6670bd7a117a259ea
                 </div>
             </div>
           

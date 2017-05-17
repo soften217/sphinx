@@ -20,8 +20,16 @@ Route::get('/', function () {
 Route::get('/bulletin', function () {
     return view('bulletin/index');
 });
+<<<<<<< HEAD
 
 
+=======
+<<<<<<< HEAD
+
+
+=======
+>>>>>>> a15eb863e53829e0b2906a653cadd04f30663d66
+>>>>>>> 2122ce65bcb88e274b35a1b6670bd7a117a259ea
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -46,6 +54,7 @@ Route::group(['middleware' => 'web'], function () {
   Route::post('addgroup', 'AddGroupController@add');
   
   Route::get('questionbank','QuestionBankController@index');
+<<<<<<< HEAD
   Route::get('formquestion','FormQuestionController@index');
   
   Route::get('createquiz/{id}', 'FormExamController@create');
@@ -62,12 +71,17 @@ Route::group(['middleware' => 'web'], function () {
   Route::get('editquestion/{id}/delete', 'FormQuestionController@delete');
   Route::post('formquestion', 'FormQuestionController@form');
   
+=======
+>>>>>>> 2122ce65bcb88e274b35a1b6670bd7a117a259ea
   Route::get('calendar','CalendarController@index');
   Route::get('help','sendmail@index');
   Route::post('help', 'sendmail@send');
   Route::get('mailtest', function() {
     return view('mail');
+<<<<<<< HEAD
     
+=======
+>>>>>>> 2122ce65bcb88e274b35a1b6670bd7a117a259ea
   });
 //   Route::get('/calendar', function () {
 //     return view('calendar');  

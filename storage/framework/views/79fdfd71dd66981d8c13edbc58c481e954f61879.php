@@ -6,6 +6,7 @@
                 <div class="panel-heading">Question Bank</div>
 
                 <div class="panel-body">
+<<<<<<< HEAD
                       <table>
                       <tr>
                        <th width=20%>Course </th>  
@@ -35,6 +36,9 @@
                               }
                   ?>
                    </table>
+=======
+                    This is the QUESTION BANK.
+>>>>>>> 2122ce65bcb88e274b35a1b6670bd7a117a259ea
                 </div>
             </div>
         </div>

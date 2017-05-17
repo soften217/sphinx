@@ -99,23 +99,40 @@ class AddGroupController extends Controller
                         ['user_id' =>  auth()->user()->id, 'group_id' => $id]
                          );
 
+<<<<<<< HEAD
                          
+=======
+                        echo 'Joined successfully.';
+
+>>>>>>> 2122ce65bcb88e274b35a1b6670bd7a117a259ea
                         return view('student/addgroup');
                         }
                         else
                         {
+<<<<<<< HEAD
                           return view('errors/derror', ['notify' => 'Sorry, that group has already been archived.'] );
+=======
+                          echo 'You already joined that group!';
+>>>>>>> 2122ce65bcb88e274b35a1b6670bd7a117a259ea
                         }
                     }
                 else
                 {
+<<<<<<< HEAD
                   return view('errors/derror', ['notify' => 'Sorry, that group has already been archived.']);
+=======
+                  echo 'Sorry, that group has already been archived.';
+>>>>>>> 2122ce65bcb88e274b35a1b6670bd7a117a259ea
                 }
               }
               else
               {
+<<<<<<< HEAD
                 //alert()->error('Error Message', 'We cannot find the group you are looking for');
                 return view('errors/derror', ['notify' => 'We cannot find the group you are looking for']);
+=======
+                echo 'Wrong code';
+>>>>>>> 2122ce65bcb88e274b35a1b6670bd7a117a259ea
               }
           }
     }

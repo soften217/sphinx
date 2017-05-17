@@ -89,6 +89,7 @@
              </ul>
           </li>
             <?php if(auth()->user()->isFaculty == 1): ?>
+<<<<<<< HEAD
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                 Question Bank <span class="caret"></span>
@@ -98,6 +99,9 @@
                 <li><a href="<?php echo e(url('/questionbank')); ?>"><i class="fa fa-btn fa-plus"></i>Manage Questions</a></li>
              </ul>
           </li>  
+=======
+            <li><a href="<?php echo e(url('/questionbank')); ?>">Question Bank</a></li>
+>>>>>>> 2122ce65bcb88e274b35a1b6670bd7a117a259ea
             <?php else: ?>
             <?php endif; ?>
           <?php endif; ?>
