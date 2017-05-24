@@ -8,6 +8,7 @@
                 <div class="panel-heading">Question Bank</div>
 
                 <div class="panel-body">
+<<<<<<< HEAD
                       <table>
                       <tr>
                        <th width=10%>Course <a href="/questionbank/cmpCourse" class="fa fa-sort" aria-hidden="true"></a></th>  
@@ -71,6 +72,19 @@
                               }
                   ?>
                    </table>
+=======
+                     <?php
+                      $questions = DB::table('questions')->where('id', '<=', '100')->get();
+              
+                              foreach ($questions as $question) {
+                                    $course = $question->course;
+                                    $type = $question->type;
+                                    $id = $question->id;
+                                
+                                    echo '<a href="/formquestion">'.$course.'-'.$type.'-'.$id.'</a><br>';
+                              }
+                  ?>
+>>>>>>> b8dbc83003d74bbcad6f42be6a4a3550a5946e15
                 </div>
             </div>
         </div>

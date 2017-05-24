@@ -6,13 +6,18 @@
                 <div class="panel-heading"><?php echo e($id); ?> </div>
 
                 <div class="panel-body">
+<<<<<<< HEAD
                     List of enrolled students in this group:
                   
+=======
+                    This is a sample STUDENT Group page.
+>>>>>>> b8dbc83003d74bbcad6f42be6a4a3550a5946e15
                 </div>
             </div>
         </div>
     </div>
 </div>
+<<<<<<< HEAD
 <div class="container">
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
@@ -121,5 +126,7 @@
         }
     }
 </script>
+=======
+>>>>>>> b8dbc83003d74bbcad6f42be6a4a3550a5946e15
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

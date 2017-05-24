@@ -26,7 +26,7 @@ class AddGroupController extends Controller
      */
     public function index()
     {
-        if (auth()->user()->isFaculty == 1) 
+        if (auth()->user()->isFaculty == 1)
         {
             return view('faculty/addgroup');
         }
@@ -35,21 +35,21 @@ class AddGroupController extends Controller
             return view('student/addgroup');
         }
     }
-  
+
     public function add(Request $request)
     {
-        if (auth()->user()->isFaculty == 1) 
+        if (auth()->user()->isFaculty == 1)
           {
             $course  = $request->input('course');
             $section = $request->input('section');
             $yearStart = $request->input('year');
             $yearEnd = $yearStart + 1;
             $term = $request->input('term');
-            
+
             $id = $course . '-' . $section . '-' . ($yearStart-2000) . ($yearEnd-2000) . '-T' . $term;
-            
+
             $check_id = DB::table('groups')->where('id', '=', $id)->first();
-            
+
             if($check_id==NULL)
             {
                     $code = str_random(8);
@@ -81,9 +81,9 @@ class AddGroupController extends Controller
          else
           {
               $code = $request->input('code');
-            
+
               $check_code = DB::table('groups')->where('code', '=', $code)->first();
-              
+
               if(!($check_code==NULL))
               {
                     $id = $check_code->id;
@@ -99,7 +99,7 @@ class AddGroupController extends Controller
                         ['user_id' =>  auth()->user()->id, 'group_id' => $id]
                          );
 
-                         
+
                         return view('student/addgroup');
                         }
                         else
@@ -119,7 +119,7 @@ class AddGroupController extends Controller
               }
           }
     }
-  
-    
+
+
 
 }

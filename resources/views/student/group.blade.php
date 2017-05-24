@@ -15,6 +15,7 @@
         </div>
     </div>
 </div>
+<<<<<<< HEAD
 <div class="container">
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
@@ -123,4 +124,6 @@
         }
     }
 </script>
+=======
+>>>>>>> b8dbc83003d74bbcad6f42be6a4a3550a5946e15
 @endsection

@@ -8,6 +8,7 @@
                 <div class="panel-heading">{{$id}}</div>
 
                 <div class="panel-body">
+<<<<<<< HEAD
                   
                   List of Students Enrolled in this Group: <br><br>
                   
@@ -101,10 +102,14 @@
                   
                   ?>
                   
+=======
+                    This is a sample FACULTY Group page.
+>>>>>>> b8dbc83003d74bbcad6f42be6a4a3550a5946e15
                     <br><br><br><br><br>
                     JOIN CODE: <b><u>{{$code}}</u></b>.
                 </div>
                 <div class="panel-body" style="text-align:right">
+<<<<<<< HEAD
                   
                   <script>
                   function deletearchive(){
@@ -210,6 +215,12 @@
                   
                   <button onclick="createQuiz()" value="CREATE">Create New Questionnaire</button>
                   
+=======
+                    
+                  <?php
+                    echo '<a href="/archive/'.$id.'"><i class="fa fa-btn fa-trash"></i>Archive this group</a>';
+                  ?>
+>>>>>>> b8dbc83003d74bbcad6f42be6a4a3550a5946e15
                 </div>
             </div>
           

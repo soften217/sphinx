@@ -27,7 +27,12 @@
                     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.css"/>
 
                     <?php
+<<<<<<< HEAD
                     
+=======
+                    /* Set the default timezone */
+                    date_default_timezone_set("America/Montreal");
+>>>>>>> b8dbc83003d74bbcad6f42be6a4a3550a5946e15
 
                     /* Set the date */
                     $date = strtotime(date("Y-m-d"));

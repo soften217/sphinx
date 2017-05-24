@@ -16,21 +16,33 @@
     </div>
 </div>
 <div class="container">
+<<<<<<< HEAD
   
+=======
+>>>>>>> b8dbc83003d74bbcad6f42be6a4a3550a5946e15
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
                 <div class="panel-heading">Calendar</div>
 
                 <div class="panel-body">
+<<<<<<< HEAD
                       
+=======
+
+>>>>>>> b8dbc83003d74bbcad6f42be6a4a3550a5946e15
                     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
                     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
                     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.js"></script>
                     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.css"/>
 
                     <?php
+<<<<<<< HEAD
                       
+=======
+                        /* Set the default timezone */
+                        date_default_timezone_set("America/Montreal");
+>>>>>>> b8dbc83003d74bbcad6f42be6a4a3550a5946e15
 
                         /* Set the date */
                         $date = strtotime(date("Y-m-d"));
@@ -79,6 +91,7 @@
                             <?php endfor; ?>
                           </tr>
                         </table>
+<<<<<<< HEAD
                     
                 </div>
               1
@@ -88,6 +101,13 @@
       3
     </div>
   4
+=======
+
+                </div>
+            </div>
+        </div>
+    </div>
+>>>>>>> b8dbc83003d74bbcad6f42be6a4a3550a5946e15
 </div>
 
 <div class="container">
@@ -97,7 +117,11 @@
                 <div class="panel-heading">Reminders</div>
 
                 <div class="panel-body">
+<<<<<<< HEAD
                       
+=======
+
+>>>>>>> b8dbc83003d74bbcad6f42be6a4a3550a5946e15
                    <div class="wrap">
   <div class="task-list">
      <ul>
@@ -110,7 +134,11 @@
     $con = new mysqli($server, $db_user, $db_pass);
     mysqli_connect($server, $db_user, $db_pass) or die("Could not connect to server!");
     mysqli_select_db($con, $db_name) or die("Could not connect to database!");
+<<<<<<< HEAD
        
+=======
+
+>>>>>>> b8dbc83003d74bbcad6f42be6a4a3550a5946e15
     $query = mysqli_query($con, "SELECT * FROM tasks ORDER BY date ASC, time ASC");
     $numrows = mysqli_num_rows($query);
 
@@ -127,7 +155,11 @@
                     <td>'.$task_name.'</td>
                     <td>'.$task_date.'</td>
                     <td>'.$task_time.'</td>
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> b8dbc83003d74bbcad6f42be6a4a3550a5946e15
      </tr>';
   }
       echo '</table>';
@@ -136,7 +168,11 @@
      </ul>
  </div>
     </div>
+<<<<<<< HEAD
                     
+=======
+
+>>>>>>> b8dbc83003d74bbcad6f42be6a4a3550a5946e15
                 </div>
             </div>
         </div>

@@ -26,7 +26,7 @@ class FormQuestionController extends Controller
      */
     public function index()
     {
-        if (auth()->user()->isFaculty == 1) 
+        if (auth()->user()->isFaculty == 1)
         {
             return view('faculty/formquestion');
         }
@@ -35,20 +35,20 @@ class FormQuestionController extends Controller
             return view('student/home');
         }
     }
-  
+
   public function form(Request $request)
     {
-        if (auth()->user()->isFaculty == 1) 
+        if (auth()->user()->isFaculty == 1)
           {
             $course  = $request->input('course');
             $type = $request->input('type');
             $content = $request->input('content');
-            
+
             // GETTING NECESSARY DATA
             if($type == 'OBJECTIVE')
             {
               $subtype = $request->input('subtype');
-              
+
               if($subtype == 'IDENTIFICATION')
               {
                 $answer = $request->input('answer');
@@ -56,12 +56,12 @@ class FormQuestionController extends Controller
               else if($subtype == 'MULTIPLECHOICE')
               {
                 $choiceCount = $request->input('choiceCount');
-                
+
                 $correctAnswers = array();
                 $correctAnswers = $request->input('correctAnswers');
-                
+
                 $choices = array();
-                
+
                 for($counter = 1; $counter <= $choiceCount; $counter++)
                 {
                   $choices[$counter] = $request->input('choice'.$counter);
@@ -69,7 +69,7 @@ class FormQuestionController extends Controller
               }
               else
               {
-                
+
               }
             }
             else
@@ -82,7 +82,7 @@ class FormQuestionController extends Controller
              $question_id = DB::table('questions')->insertGetId(
                 ['course' =>  $course, 'type' => $type, 'subtype' => $subtype, 'content' => $content,  'creator_id' => auth()->user()->id]
              );
-            
+
             // ADDING IDENTIFICATION ANSWER TO DATABASE
             if($subtype == 'IDENTIFICATION')
             {
@@ -90,14 +90,14 @@ class FormQuestionController extends Controller
                         ['value' =>  $answer, 'question_id' => $question_id, 'isCorrect' => 1]
                      );
             }
-            
+
             // ADDING MULTIPLE CHOICE ANSWER TO DATABASE
             else if($subtype == 'MULTIPLECHOICE')
             {
               for($counter = 1; $counter <= $choiceCount; $counter++)
               {
                 $isCorrect = 0;
-                
+
                 foreach($correctAnswers as $correctAnswer)
                   {
                     if($correctAnswer == $counter)
@@ -105,7 +105,7 @@ class FormQuestionController extends Controller
                       $isCorrect = 1;
                     }
                   }
-                
+
                 DB::table('answers')->insertGetId(
                         ['value' =>  $choices[$counter], 'question_id' => $question_id, 'isCorrect' => $isCorrect]
                      );
@@ -113,74 +113,91 @@ class FormQuestionController extends Controller
             }
             else
             {
-              
+
             }
-            
-                     
+
+
                      echo 'Added successfully.';
-            
+
+            $subtype = $request->input('subtype');
+            $content = $request->input('content');
+            $answer = $request->input('answer');
+
+
+             $question_id = DB::table('questions')->insertGetId(
+                ['course' =>  $course, 'type' => $type, 'content' => $content,  'creator_id' => auth()->user()->id]
+             );
+
+            if($answer!=NULL)
+            {
+              DB::table('answers')->insertGetId(
+                        ['value' =>  $answer, 'question_id' => $question_id]
+                     );
+
+            }
+
+                     echo 'Added successfully.';
 
                       return view('faculty/questionbank');
-           
+
           }
          else
           {
-             
-          }
 
+          }
     }
-  
+
   public function edit($id)
     {
         $data['id'] = $id;
-      
-        if (auth()->user()->isFaculty == 1) 
+
+        if (auth()->user()->isFaculty == 1)
           {
-            
+
             $questions = DB::table('questions')->where('id', '=', $id)->get();
-            
+
             foreach($questions as $question)
             {
               $data['course'] = $question->course;
               $data['type'] = $question->type;
               $data['content'] = $question->content;
             }
-            
+
             $answers = DB::table('answers')->where('question_id', '=', $id)->get();
-            
+
             foreach($answers as $answer)
             {
               $data['value'] = $answer->value;
             }
-            
+
             return view('faculty/editquestion')->with($data);
-           
+
           }
          else
           {
-             
+
           }
-      
+
     }
-  
-  
+
+
    public function delete($id)
     {
         $data['id'] = $id;
-      
-        if (auth()->user()->isFaculty == 1) 
+
+        if (auth()->user()->isFaculty == 1)
           {
             $question = DB::table('questions')->where('id', '=', $id)->update(['isArchived' => 1]);
             echo 'DELETED SUCESSFULLY';
             return view('faculty/editquestion');
-           
+
           }
          else
           {
-             
+
           }
-      
+
     }
-  
+    }
 
 }

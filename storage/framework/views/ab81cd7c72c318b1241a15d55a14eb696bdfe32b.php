@@ -1,8 +1,11 @@
+<<<<<<< HEAD
 <?php
 date_default_timezone_set("Asia/Manila");
 
 ?>
 
+=======
+>>>>>>> b8dbc83003d74bbcad6f42be6a4a3550a5946e15
 <!DOCTYPE html>
 <html lang="en">
 
@@ -112,11 +115,17 @@ date_default_timezone_set("Asia/Manila");
         <ul class="nav navbar-nav navbar-right">
           <!-- Authentication Links -->
           <?php if(Auth::guest()): ?>
+<<<<<<< HEAD
           <li><a><?php echo date("F j, Y, g:i a") ?></a></li>
           <li><a href="<?php echo e(url('/login')); ?>">Login</a></li>
           <li><a href="<?php echo e(url('/register')); ?>">Register</a></li>
           <?php else: ?>
           <li><a><?php echo date("F j, Y, g:i a") ?></a></li>
+=======
+          <li><a href="<?php echo e(url('/login')); ?>">Login</a></li>
+<!--           <li><a href="<?php echo e(url('/register')); ?>">Register</a></li> -->
+          <?php else: ?>
+>>>>>>> b8dbc83003d74bbcad6f42be6a4a3550a5946e15
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                 <?php echo e(Auth::user()->name); ?> <span class="caret"></span>
