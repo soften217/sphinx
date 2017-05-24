@@ -8,10 +8,21 @@
                 <div class="panel-heading">Join Group</div>
 
                 <div class="panel-body">
-                    PLEASE ENTER JOIN CODE:
+                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/addgroup') }}">
+                       {{ csrf_field() }}
+                       
+                      PLEASE ENTER JOIN CODE:<br>
+                      <input type="text" name="code" value="">
+                      <br><br>
+                      <input type="submit" value="Submit">
+                    </form> 
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+
+
+
 @endsection

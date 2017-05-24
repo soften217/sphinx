@@ -35,5 +35,5 @@ class CalendarController extends Controller {
       
         return view('calendar', compact('calendar'));
     }
-
+ 
 }

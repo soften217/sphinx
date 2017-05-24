@@ -49,7 +49,7 @@
                   <li>Joem Casusi</li>
                   <li>Jeian Nueva</li>
                   <li>Vincent Paulin</li>
-                  <li>Jan Gabriel Reyes</li>
+                  <li>GJay Reyes</li>
               </ul>
             </div>
         </div>

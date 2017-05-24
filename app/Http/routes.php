@@ -16,6 +16,12 @@ Route::get('/', function () { if(DB::connection()->getDatabaseName()) { echo "Ye
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/bulletin', function () {
+    return view('bulletin/index');
+});
+
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -30,13 +36,47 @@ Route::get('/', function () {
 Route::group(['middleware' => 'web'], function () {
   Route::auth(); // must be inside 'web'
   Route::get('home','HomeController@index');
-  Route::get('group','GroupController@index');
-  Route::get('addgroup','AddGroupController@index');
-  Route::get('questionbank','QuestionBankController@index');
-  Route::get('calendar','CalendarController@index');
   
-  Route::get('/gethelp', function () {
-    return view('gethelp');
+  Route::get('group','GroupController@index');
+  Route::get('group/{id}', 'GroupController@show');
+  
+  Route::get('archive/{id}', 'GroupController@archive');
+  
+  Route::get('addgroup','AddGroupController@index');
+  Route::post('addgroup', 'AddGroupController@add');
+  
+  Route::get('questionbank','QuestionBankController@index');
+  Route::get('questionbank/{method}','QuestionBankController@sort');
+  
+  Route::get('formquestion','FormQuestionController@index');
+  
+  Route::get('createquiz/{id}', 'FormExamController@create');
+  Route::post('formexam', 'FormExamController@form');
+  
+  Route::get('viewexam/{id}', 'FormExamController@view');
+  Route::post('viewexam', 'FormExamController@view');
+  
+  Route::get('makeAvailable/{id}', 'FormExamController@activate');
+  
+  Route::post('getresult', 'CheckAnswerController@check');
+  Route::get('getstudentresult/{exam_id}/{stud_id}', 'CheckAnswerController@checkstudent');
+  
+  Route::get('deleteexam/{group_id}/{exam_id}', 'FormExamController@delete');
+  
+  Route::get('editquestion/{id}', 'FormQuestionController@edit');
+  Route::get('editquestion/{id}/delete', 'FormQuestionController@delete');
+  Route::post('formquestion', 'FormQuestionController@form');
+  
+  Route::post('updategrades/{stud_id}/{exam_id}', 'CheckAnswerController@update');
+ 
+  
+  
+  Route::get('calendar','CalendarController@index');
+  Route::get('help','sendmail@index');
+  Route::post('help', 'sendmail@send');
+  Route::get('mailtest', function() {
+    return view('mail');
+    
   });
 //   Route::get('/calendar', function () {
 //     return view('calendar');  
