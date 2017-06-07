@@ -15,7 +15,9 @@
 
                     <?php
 /* Set the default timezone */
-date_default_timezone_set("America/Montreal");
+// date_default_timezone_set("America/Montreal");
+									
+									//*TIME ZONE IS SET THROUGH LARAVEL
 
 /* Set the date */
 $date = strtotime(date("Y-m-d"));

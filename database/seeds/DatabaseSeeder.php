@@ -12,6 +12,11 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // $this->call(UserTableSeeder::class);
-      Eloquent::unguard();
-     $this->call('UserTableSeeder');
+      DB::table('users')->insert([
+            'name' => str_random(10),
+            'email' => rand(201600001, 201603999).'@iacademy.edu.ph',
+            'password' => bcrypt('password'),
+            'isFaculty' => 0,
+        ]);
+    }
 }

@@ -1,4 +1,20 @@
 <?php $__env->startSection('content'); ?>
+<style>
+  
+  .blueicon{
+    color: #0075ba;
+  }
+  
+  .redicon{
+    color: #c40000;
+  }
+  
+  .greenicon{
+    color: #009607
+  }
+  
+</style>
+
 <div class="container">
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
@@ -6,18 +22,19 @@
                 <div class="panel-heading"><?php echo e($id); ?> </div>
 
                 <div class="panel-body">
-<<<<<<< HEAD
-                    List of enrolled students in this group:
+                   <p> Welcome Student to your Group Dashboard! </p>     
+                  <p>
+                    Click on the Quiz or Exam that you are specified to take by your professor within the alloted timeframe.
+                  </p><br/>
+                  <p>
+                    Good luck!
+                  </p>
                   
-=======
-                    This is a sample STUDENT Group page.
->>>>>>> b8dbc83003d74bbcad6f42be6a4a3550a5946e15
                 </div>
             </div>
         </div>
     </div>
 </div>
-<<<<<<< HEAD
 <div class="container">
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
@@ -25,18 +42,17 @@
                 <div class="panel-heading">List of Exams/Quizzes for this group</div>
 
                 <div class="panel-body">
-                    <table>
-                      <tr>
-                         <th width=5%>ID</th> 
-                        <th width = 25%> Topic</th>
-                        <th width = 20%> Duration</th>
-                        <th width = 20%> Date</th>
-                        <th width= 10%>Score</th>
-                        <th width= 10%>Grade</th>
-                        <th width= 10%>Status</th>
+                    <table style="width: 100%; text-align: center">
+                      <tr id="list" style="text-align: center;">
+                        <th style="text-align: center;" width=15%>Name</th> 
+                        <th style="text-align: center;" width=20%>Topic</th>
+                        <th style="text-align: center;" width=15%>Duration</th>
+                        <th style="text-align: center;" width=20%>Date</th>
+                        <th style="text-align: center;" width=10%>Score</th>
+                        <th style="text-align: center;" width=10%>Grade</th>
+                        <th style="text-align: center;" width=10%>Status</th>
                       </tr>
                         
-                    
                      <?php
                       $exams = DB::table('exams')->where('group_id', '=', $id)->get();
                               foreach ($exams as $exam) {
@@ -44,26 +60,28 @@
                                 {                                               
                                     $exam_id = $exam->id;
                                   
-                                      if($exam->duration < 60000) {
-                                        $duration = $exam->duration / 1000 ; 
-                                        $time = ' Seconds';
-                                      }
-                                      else if($exam->duration < 3600000){
-                                      $duration = $exam->duration / 60000 ; 
-                                      $time = ' Minutes';
-                                      } else {
-                                      $duration = $exam->duration / 3600000 ; 
-                                      $time = ' Hours';
-                                      }
+                                    if($exam->duration < 60000) {
+                                    $duration = round(($exam->duration / 1000), 2) ; 
+                                    $time = 'Seconds';
+                                    }
+                                    else if($exam->duration < 3600000){
+                                    $duration = round(($exam->duration / 60000), 2) ; 
+                                    $time = 'Minutes';
+                                    } else {
+                                    $duration = round(($exam->duration / 3600000), 2) ; 
+                                    $time = 'Hours';
+                                    }
                                   $availabledate = $exam ->schedule;
-                                  $topic = $exam ->topic;
+                                  $topic = $exam->topic;
+                                  $name = $exam->name;
                                   $verifyExamEntry = DB::table('exam_user')->where('user_id', '=', auth()->user()->id)->where('exam_id', '=', $exam_id)->first();
+                                  
                                     
                                   
                                     if(count($verifyExamEntry)==null)
                                     {
-                                      echo '<tr> 
-                                    <td> '.$exam_id .' </td>
+                                      echo '<tr id="list"> 
+                                    <td> <a onclick=\'return theFunction("'.$exam_id.'");\'>'.$name .'</a> </td>
                                     <td> '.$topic.'</td>
                                     <td> '.$duration.$time.' </td>
                                     <td> '.$availabledate.' </td>
@@ -72,37 +90,42 @@
                                     <td>';
                                       
                                       if($availabledate == date("Y-m-d") || $availabledate == NULL){
-                                        echo '<a href="/viewexam/'.$exam_id.'" onclick="return theFunction();">Start</a></td>';
+                                        echo '<a onclick=\'return theFunction("'.$exam_id.'");\'><i class="fa fa-pencil blueicon" aria-hidden="true"></i></a></td>';
+//                                      echo "<a onclick=' return theFunction(this);'>Start</a> </td>"  ;
                                       } else if($availabledate > date("Y-m-d")) {
-                                        echo '<p> PLANNED </p>';
+                                        echo '<p><i class="fa fa-calendar-o blueicon" aria-hidden="true"></i></p>';
                                       } else {
-                                        echo '<p> MISSED </p>';
+                                        echo '<p><i class="fa fa-times redicon" aria-hidden="true"></i></p>';
                                       }
                                       
                                     echo '</tr>';
                                     }
                                     else if ($verifyExamEntry->isTaken==0)
                                     {
-                                    echo '<tr> 
-                                    <td> '.$exam_id .' </td>
-                                    <td> '.$exam_id .' </td>
+                                    echo '<tr id="list"> 
+                                    <td> <a onclick=\'return theFunction("'.$exam_id.'");\'>'.$name .' </a></td>
                                     <td> '.$topic.'</td>
                                     <td> '.$duration. ' '.$time.' </td>
                                     <td> '.$availabledate.' </td>
                                     <td> ----- </td>
                                     <td> ----- </td>
-                                    <td><a href="/viewexam/'.$exam_id.'" onclick="return theFunction();">Start</a></td>
+                                    <td><a onclick=\'return theFunction("'.$exam_id.'");\'><i class="fa fa-play blueicon" aria-hidden="true"></i></a> </td></td>
                                     </tr>';                                   
                                     }
                                     else {
-                                    echo '<tr> 
-                                    <td> '.$exam_id .' </td>
+                                      
+                                      $exam_details = DB::table('exams')->where('id', '=', $exam_id)->first();
+                                        
+                                      $total = ($exam_details->totalObjPts + $exam_details->totalSubjPts);
+                                      
+                                    echo '<tr id="list"> 
+                                    <td> <a href="../viewexam/'. $exam_id . '"/a>'.$name .' </a></td>
                                     <td> '.$topic.'</td>
-                                   <td> '.$duration. ' '.$time.' </td>
+                                    <td> '.$duration. ' '.$time.' </td>
                                     <td> '.$availabledate.' </td>
-                                    <td> '.$verifyExamEntry->rawScore .' </td>
+                                    <td> '.$verifyExamEntry->rawScore .'/'.$total.' </td>
                                     <td> '.$verifyExamEntry->percentScore .'% </td>
-                                    <td>Completed</td>
+                                    <td><a href="../viewexam/'. $exam_id . '"/a> <i class="fa fa-check greenicon" aria-hidden="true"></i></a></td>
                                     </tr>';
                                     }
                                 }
@@ -117,16 +140,26 @@
     </div>
 </div>
 
-<script type="text/javascript">
-    function theFunction () {
-        if (confirm('Are you sure you want to begin this exam?')) {
-          return true;
-        } else {
-          return false;
-        }
-    }
+<script>
+                    function theFunction(examID)
+                    {
+                      swal({
+                    title: "Start this exam?",
+                    text: "WARNING: Please comply with the following restrictions: \n\n1. Do not refresh the page.\n2. Do not resize the window.\n3. Do not switch between browser tabs or windows.\n\nIf you do any of the things mentioned above, the exam will automatically be submitted and you will no longer be able to access it.",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Yes",
+                    closeOnConfirm: false
+                  },
+                  function(){
+                    window.location.href ='../viewexam/<?php echo e($id); ?>/'+examID;
+                  });  
+                    }
+  
+  
+            
 </script>
-=======
->>>>>>> b8dbc83003d74bbcad6f42be6a4a3550a5946e15
+
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Collection; 
+use Alert;
 use DB;
 
 class QuestionBankController extends Controller
@@ -27,8 +29,25 @@ class QuestionBankController extends Controller
   
     public function index()
     { 
+      $group = DB::table('groups')->where('creator_id', '=', auth()->user()->id)->where('isArchived', '!=', 1)->first();
       
-      $data['sortBy'] = "cmpCourse";
+      if($group == null){
+        Alert::info('No Course Found', 'Create a group first');
+        
+        
+        if (auth()->user()->isFaculty == 1) 
+        {
+            return view('faculty/home');
+        }
+       else
+        {
+            return view('student/home');
+        }
+      }
+      else
+      {
+        $data['courseQ'] = $group->course;
+      $data['sortBy'] = "cmpID";
       
         if (auth()->user()->isFaculty == 1) 
         {
@@ -38,11 +57,12 @@ class QuestionBankController extends Controller
         {
             return view('student/home');
         }
+      }
     }
   
-  public function sort($method)
+  public function sort($course, $method)
     {
-      
+        $data['courseQ'] = $course;
         $data['sortBy'] = $method;
       
         if (auth()->user()->isFaculty == 1) 
@@ -54,5 +74,7 @@ class QuestionBankController extends Controller
             return view('student/home');
         }
     }
+  
+  
 
 }

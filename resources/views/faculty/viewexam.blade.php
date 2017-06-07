@@ -5,16 +5,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
-          <table>
-            <tr>
-            <td style="width:50px">
-              <button onclick="goBack()"><<</button>
-              </td>
-              <td>
-              Go back to Group Page
-              </td>
-            </tr>
-          </table>
+          <a href="/group/{{$group_id}}" class="btn btn-default">Go Back</a><br>
            <br>
             <div class="panel panel-default">
                 <div class="panel-heading">Viewing Exam ID number {{$id}}</div>
@@ -23,7 +14,21 @@
                   <table width="40%">
                     <tr>
                       <td width="20%">Duration : </td>
-                      <td width="20%"><?php echo $duration/36000; ?> mins.</td>
+                      <?php
+                            if($duration < 60000) {
+                              $durationNew = round(($duration / 1000), 2) ; 
+                              $time = ' Seconds';
+                            }
+                            else if($duration < 3600000){
+                            $durationNew = round(($duration / 60000), 2) ; 
+                            $time = ' Minutes';
+                            } else {
+                            $durationNew = round(($duration / 3600000), 2) ; 
+                            $time = ' Hours';
+                            }
+                      
+                      ?>
+                      <td width="20%"><?php echo $durationNew . ' ' . $time; ?> </td>
                     </tr>
                     <tr>
                       <td width="20%">Availability : </td>
@@ -51,7 +56,7 @@
                   
                      <table>
                    
-                       <tr>
+                       <tr id="list">
                        <th width="50px">No.</th>
                        <th width= "600px">Question</th>
                        <th width= "200px">Answer</th>
@@ -63,7 +68,7 @@
                        
                        foreach($arrayQuestions as $arrayQuestion)
                        {
-                         echo '<tr>';
+                         echo '<tr id="list">';
                          echo '<td>' . $count . '</td>';
                          echo '<td>' . $arrayQuestions[$count-1]["content"] . '</td>';
                          echo '<td>' . $arrayQuestions[$count-1]["answer"] . '</td>';
@@ -81,9 +86,4 @@
         </div>
     </div>
 </div>
-<script>
-function goBack() {
-                      window.history.back();
-                  }
-</script>
 @endsection

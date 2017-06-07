@@ -14,24 +14,13 @@
 <div class="container">
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
-          <table>
-            <tr>
-            <td style="width:50px">
-              <button onclick="goBack()"><<</button>
-              </td>
-              <td>
-              Go back to Group Page
-              </td>
-            </tr>
-          </table>
-           <br>
             <div class="panel panel-default">
                 <div class="panel-heading">Viewing Exam ID number {{$id}}</div>
 
-                <div class="panel-body">
+                <div class="panel-body" id="exam">
                   <p style="text-align: right; font-size:20px" id="displayTime"></p>
                   
-                  <table>
+                  <table name="exampanel" id="exampanel">
                     <tr>
                       <td width="80%" style="padding:15px; text-align:left;">
                       <div style="height: 500px; overflow:hidden;">
@@ -133,7 +122,7 @@
                          {
                            echo '<div id="previousButton|'.$count.'" style="display:none;">';
                          }
-                         echo '<span><a onclick="displayPreviousQuestion('.$count.');"><br>PREVIOUS<br>QUESTION</a></span>';
+                         echo '<span><br><a class="btn btn-default" onclick="displayPreviousQuestion('.$count.');">PREVIOUS<br>QUESTION</a></span>';
                          echo '</div>';
                          echo '</td>';
                          
@@ -148,7 +137,7 @@
                          {
                            echo '<div id="nextButton|'.$count.'" style="display:none;">';
                          }
-                         echo '<span><a onclick="displayNextQuestion('.$count.');"><br>NEXT<br>QUESTION</a></span>';
+                         echo '<span><br><a class="btn btn-default" onclick="displayNextQuestion('.$count.');">NEXT<br>QUESTION</a></span>';
                          echo '</div>';
                          echo '</td>';
                          
@@ -166,7 +155,7 @@
                     @else
                     <div id="submitAnswers" style="display:block;">
                     @endif
-                    <span><input type="submit" value="Submit" onclick="return theFunction();"/></span>
+                    <span><button type="button" value="Submit" onclick="theFunction();"/>SUBMIT Exam</span>
                     </div>
                   </form>
                     </div>
@@ -178,8 +167,8 @@
                           <?php
                                  $maxColumn = 5;
                                  $currentColumn = 1;
-                          echo '<table width="100%" style="padding:15px; text-align:left; border: 1px solid black;">';
-                          echo '<tr><th style="text-align:center; border: 1px solid black;" class="panel-heading" colspan="'.$maxColumn.'">NAVIGATION</th></tr>';
+                          echo '<table width="100%" style="padding:15px; text-align:left;">';
+                          echo '<tr><th style="text-align:center;" class="panel-heading" colspan="'.$maxColumn.'">QUESTION NAVIGATION</th></tr>';
                                  for($j = 1; $j <= count($arrayQuestions); $j++)
                                  {
                                    if($currentColumn == 1)
@@ -188,8 +177,8 @@
                                    }
                                    if($currentColumn <= $maxColumn+1)
                                    {
-                                     echo '<td width="20%" style="padding:15px; text-align:left; border: 1px solid black;">';
-                                     echo '<a onclick="displayQuestion('.($j).');"><span style="font-size:20px;">'.$j.'</span></a>';
+                                     echo '<td width="20%">';
+                                     echo '<a class="btn btn-default" onclick="displayQuestion('.($j).');"><span style="font-size:20px;">'.$j.'</span></a>';
                                      echo '</td>';
                                      $currentColumn++;
                                    }
@@ -225,12 +214,51 @@
                       window.history.back();
                   }
   function theFunction () {
-        if (confirm('Are you sure you want to submit this exam?')) {
-          return true;
-        } else {
-          return false;
-        }
-    }
+//         if (swal('Are you sure you want to submit this exam?')) {
+//           return true;
+//         } else {
+//           return false;
+//         }
+
+        swal({
+  title: "Finished?",
+  text: "Are you sure you want to submit exam?",
+  type: "info",
+  allowOutsideClick: true,
+  showConfirmButton: true,
+  closeOnConfirm: false,
+  showCancelButton: true,
+  showLoaderOnConfirm: true,
+},
+function(isConfirm){
+          if (isConfirm == true){
+             document.forms["studentExam"].submit();
+          }else{
+              swal("Continue your exam");
+  }
+        });
+    
+    
+    
+//     swal({
+//   title: "Finished?",
+//   text: "Are you sure you want to submit exam",
+//   type: "input",
+//   showCancelButton: true,
+//   closeOnConfirm: false,
+//   animation: "slide-from-top",
+//   inputPlaceholder: "Write anything"
+// },
+// function(inputValue){
+//   if (inputValue === false) return false;
+  
+//   if (inputValue === "") {
+//     swal.showInputError("You need to write something!");
+//   }
+  
+//   document.forms["studentExam"].submit();
+// });
+  }
   
   function hideAll() {
     var totalQuestions = "<?php echo count($arrayQuestions) ?>";
@@ -349,7 +377,7 @@
   
   <script type="text/javascript">
     
-        window.onload=function(){
+       window.onload=function(){
          
         var auto = setTimeout(function(){ autoRefresh(); }, 100);
           
@@ -370,15 +398,29 @@
         document.getElementById("displayTime").innerHTML = "Time Left: " + hours + "h "
         + minutes + "m " + seconds + "s "; 
           
-        if (durationFromDatabase < 0) {
-        //clearInterval(x);
-        submitForm();
+        if (durationFromDatabase == 0) {
+        clearInterval(x);
+        submitform();
   }
 }, 1000);
+          
+          
+        
+        window.onresize=function(){
+          submitform();
+          swal('You have resized the window. Your form will now be submitted');
+        }
+        
+        window.onblur=function(){
+         submitform();
+         swal('Anti Cheating Exception');
+        }
+
 
         function submitform(){
-          alert('Time is up, Your answers have been submitted!');
-          document.forms["studentExam"].submit();
+          //alert('Time is up, Your answers have been submitted!');
+          swal('Time is up. Your answers have been submitted!');
+          setTimeout(function () { document.forms["studentExam"].submit(); }, 1000);
         }
 
         function autoRefresh(){
@@ -388,4 +430,5 @@
 
 }
 </script>
+
 @endsection

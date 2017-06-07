@@ -3,16 +3,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
-          <table>
-            <tr>
-            <td style="width:50px">
-              <button onclick="goBack()"><<</button>
-              </td>
-              <td>
-              Go back to Group Page
-              </td>
-            </tr>
-          </table>
+          <a href="/group/<?php echo e($id); ?>" class="btn btn-default">Go Back</a><br>
            <br>
             <div class="panel panel-default">
                 <div class="panel-heading">Creating an Exam for <?php echo e($id); ?></div>
@@ -21,10 +12,10 @@
                      <form class="form-horizontal" role="form" method="POST" action="<?php echo e(url('/formexam')); ?>">
                        <?php echo e(csrf_field()); ?>
 
-                      <table style="border-collapse: separate; border-spacing: 10px;">
+                      <table style="border-collapse: separate; border-spacing: 10px; ">
                         
                         <tr>
-                          <td style="width:200px">Course</td>
+                          <td style="width:200px"><b>Course</b></td>
                       <td><select name = "group">
                       
                         <?php
@@ -49,6 +40,42 @@
                         
                       </select></td>
                         </tr>
+                        
+                        <tr>
+                    <td>
+                    <hr>
+                    </td>
+                    <td>
+                    <hr>
+                    </td>
+                  </tr>
+      
+                  <tr>
+                    <td>
+                    <b>Name</b>
+                    </td>
+                      <td>
+                      <div style="display:block;">
+                        <span>
+                          <input type="text" name="name" placeholder="Enter questionnaire name here (e.g. Major Exam # 1)" required>
+                         </span>
+                       </div>
+                    </td>
+                       
+                  </tr>
+                 <tr>
+                    <td>
+                    <b>Topic</b>
+                    </td>
+                    <td>
+                      <div id="setduration" style="display:block;">
+                        <span>
+                          <input type="text" name="topic" placeholder="Enter topic name here" required>
+                         </span>
+                       </div>
+                    </td>
+          
+                  </tr>
                         
 <!--                         <tr><td>Type</td>
                          <td>
@@ -77,7 +104,18 @@
                     </td>
                   </tr> -->
                   <tr>
-                    <td>Questions</td>
+                    <td>
+                    <hr>
+                    </td>
+                    <td>
+                    <hr>
+                    </td>
+                  </tr>
+                        
+                  <tr style="border: 1px solid gray;">
+                    <td>
+                      <b>Questions</b>
+                    </td>
                     <td>
                       
                           <form>
@@ -156,6 +194,7 @@
                           </td>
                         </tr>
                       </table>
+                            <div style="text-align: center;"><i>NOTE: To create new questions, please select "Create New Questions" under the Question Bank menu</i></div>
                       
                       </form>
                       
@@ -178,9 +217,9 @@
           
                   <tr>
                     <td>
-                    Preview
+                      <b>Preview</b>
                     </td>
-                    <td>
+                    <td  style="border: 1px solid gray; border-collapse: separate; border-spacing: 10px; padding: 10px">
                       <div id="questionPreview" style="display:block;">
                         <span>Question Preview will be displayed here.</span>
                        </div>
@@ -192,27 +231,114 @@
                     </td>
           
                   </tr>
+                  
                   <tr>
                     <td>
-                    Duration
+                    <hr>
+                    </td>
+                    <td>
+                    <hr>
+                    </td>
+                  </tr>
+                  
+                  <tr>
+                    <td>
+                      <b>Points per Question</b>
+                    </td>
+                     <td>
+                      <div id="setduration" style="display:block;">
+                        <span>
+                          <table>
+                            <tr>
+                            <td style="padding-right: 15px; padding-top: 5px;">
+                              <input style="position:static;" name="objpoints" type="number" min=1 max=10 value=1 required="yes" /> 
+                              </td>
+                              <td style="padding:5px;">
+                              points per <b>Objective-types</b><br>
+                                <i>(Ignore this if there are no objective-type of questions)</i>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="padding-right: 15px; padding-top: 5px;">
+                             <input style="position:static;" name = "subjpoints" type="number" min=1 max=50 value=1 required="yes"/>
+                              <td style="padding:5px;">
+                              points per <b>Subjective-types</b> <br>
+                                <i>(Ignore this if there are no subjective-type of questions)</i>
+                              </td> 
+                              </td>
+                            </tr>
+                          </table>
+                         </span>
+                       </div>
+                    </td>
+          
+                  </tr>
+      
+                  <tr>
+                    <td>
+                    <hr>
+                    </td>
+                    <td>
+                    <hr>
+                    </td>
+                  </tr>
+      
+                  <tr>
+                    <td>
+                    <b>Time Limit</b>
                     </td>
                     <td>
                       <div id="setduration" style="display:block;">
-                        <span><input name="hours" type="number" min=0 max=3 value=0 />Hours <input name = "minutes" type="number" min=0 max=59 value=0 />Minutes </span>
+                        <span>
+                          <table>
+                            <tr>
+                              <td>
+                              Hours
+                              </td>
+                              <td>
+                              Minutes
+                              </td>
+                            </tr>
+                            <tr>
+                            <td style="padding-right: 15px;">
+                              <input style="position:static;" name="hours" type="number" min=0 max=3 value=0 required="yes" />
+                              </td>
+                              <td style="padding-right: 15px;">
+                              <input style="position:static;" name = "minutes" type="number" min=1 max=59 value=1 required="yes"/>
+                              </td>
+                            </tr>
+                          </table>
+                         </span>
                        </div>
                     </td>
           
                   </tr>
                   <tr>
                     <td>
-                    Date to be answered
+                      <b>Date to be answered</b>
                     </td>
                     <td>
                       <div id="availability" style="display:block;">
                         <span> <input type="date" name="availabledate"> </span>
-                       </div>
+                       </div> 
                     </td>
-          
+                  </tr>
+      
+                  <tr>
+                   <td>
+                    </td>
+                    <td>
+                        <i>(Ignore this if exam will be always available)</i>
+                    </td>
+                  </tr>
+      
+                   <tr>
+                    <td>
+                    <hr>
+                    </td>
+                    <td>
+                    <hr>
+                    </td>
                   </tr>
   
                   <script>
@@ -321,13 +447,9 @@
                            selectBox.options[i].selected = true; 
                       } 
                   }
-                  
-                  function goBack() {
-                      window.history.back();
-                  }
                     </script>
                     <tr>
-                      <td><br><br></td>
+                      <td></td>
           
                     </tr>
                       <tr><td>

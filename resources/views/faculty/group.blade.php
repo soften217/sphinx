@@ -1,6 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
+
+<style>
+.headcol {
+ position: relative; /*  absolute */
+	width: 20%;
+  }
+</style>
+
 <div class="container">
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
@@ -8,24 +16,24 @@
                 <div class="panel-heading">{{$id}}</div>
 
                 <div class="panel-body">
-<<<<<<< HEAD
                   
                   List of Students Enrolled in this Group: <br><br>
-                  
                  
                   <?php
                   $countlist = 1;
                   
-                  echo '<table width="100%" style="padding:15px; text-align:left; border: 1px solid black;"><tr>';
-                  echo '<th style="padding:15px; text-align:left; border: 1px solid black;"> Student Name </th>';
+                  echo '<table width="100%" style="padding:15px; text-align:left; display: block; overflow-x: auto; align: right;"><tr>';
+                  echo '<th class="headcol" rowspan="2" style="padding:15px; text-align:left; border: 1px solid black;"> Student Name </th>';
+									
+									echo '<th style="padding:15px; text-align:center; border: 1px solid black;" class="headcol" colspan="'.count($exams).'"> Exam/Quiz Grades</th></tr>';
                   
                   $arranged_exam = array();
                   
+									echo '<tr>';
                   foreach($exams as $exam)
                   {
-                    echo '<th style="text-align:center;"> '. $exam->id .' </th>';
+                    echo '<th style="text-align:center; border: 1px solid black;"> '. $exam->name .' </th>';
                   }
-                  
                   echo '</tr>';
                   
                   if(count($members)==1){
@@ -45,11 +53,11 @@
                   
                       for($var = 0; $var < count($members); $var++)
                       {
-                        echo '<tr>';
+                        echo '<tr id="list">';
 
                         if($members[$var]['isFaculty'] != 1)
                         {
-                          echo '<td style="padding:15px; text-align:left; border: 1px solid black;">';
+                          echo '<td class="headcol" style="padding:15px; text-align:left; border: 1px solid black;">';
                           echo $countlist . '. ';
                           echo $members[$var]['name'];
                           echo '</td>';
@@ -60,7 +68,7 @@
                           {
                             foreach($exams as $exam)
                             {
-                              echo '<td style="padding:15px; text-align:left; border: 1px solid black;"> NA </td>'; 
+                              echo '<td style="padding:10px; text-align:center; border: 1px solid black;"> NA </td>'; 
                             }
 
                           }
@@ -74,13 +82,64 @@
 
                                     if($exam->id == $exam_user->exam_id)
                                     {
-                                      echo '<td style="padding:15px; text-align:left; border: 1px solid black;"><a href="/getstudentresult/'.$exam_user->user_id.'/'.$exam->id.'">'.$exam_user->rawScore.'</a> </td>'; 
+                                      echo '<td style="padding:10px; text-align:center; border: 1px solid black;">'; 
+																			
+																			if($exam->totalSubjPts != 0 && $exam_user->toBeChecked != 0)
+																			{
+																				echo '<a href="/getstudentresult/'.$exam_user->user_id.'/'.$exam->id.'">';
+																				echo '??';
+																			}
+																			else
+																			{
+																				if($exam->totalSubjPts == 0)
+																				{
+																					echo '<a href="/getstudentresult/'.$exam_user->user_id.'/'.$exam->id.'">';
+																					echo $exam_user->obj_score;
+																				}
+																				else
+																				{
+																					echo '<a href="/getstudentresult/'.$exam_user->user_id.'/'.$exam->id.'">';
+																					echo ($exam_user->obj_score+$exam_user->subj_score);
+																				}
+																				
+																			}
+																			
+																			if($exam->totalSubjPts == 0)
+																			{
+																				echo '/'. $exam->totalObjPts;
+																			}
+																			else if($exam->totalObjPts == 0)
+																			{
+																				echo '/'. $exam->totalSubjPts;
+																				if($exam_user->toBeChecked != 0) 
+																				{
+																					echo '</a> &nbsp&nbsp<i class="fa fa-pencil-square-o" aria-hidden="true"></i>';
+																				}
+																				else
+																				{
+																					echo '</a> &nbsp&nbsp<i class="fa fa-check" aria-hidden="true"></i>';
+																				}
+																			}
+																			else
+																			{
+																				echo '/'. ($exam->totalObjPts+$exam->totalSubjPts);
+																				if($exam_user->toBeChecked != 0) 
+																				{
+																					echo '</a> &nbsp&nbsp<i class="fa fa-pencil-square-o" aria-hidden="true"></i>';
+																				}
+																				else
+																				{
+																					echo '</a> &nbsp&nbsp<i class="fa fa-check" aria-hidden="true"></i>';
+																				}
+																			}
+																			
+																			echo '</td>'; 
                                       $found = true;
                                     }
                               }
                               if($found == false)
                               {
-                                echo '<td style="padding:15px; text-align:left; border: 1px solid black;"> NA </td>'; 
+                                echo '<td style="padding:15px; text-align:center; border: 1px solid black;"> NA </td>'; 
                               }
                               else {
                                 $found = false;
@@ -88,58 +147,41 @@
 
                                 }
                               }
-
-
                           $countlist++;
                           echo '</tr>';
                         }
-
-
                       }
                   }
-                  
                   echo '</table>';
-                  
                   ?>
-                  
-=======
-                    This is a sample FACULTY Group page.
->>>>>>> b8dbc83003d74bbcad6f42be6a4a3550a5946e15
                     <br><br><br><br><br>
                     JOIN CODE: <b><u>{{$code}}</u></b>.
                 </div>
                 <div class="panel-body" style="text-align:right">
-<<<<<<< HEAD
                   
                   <script>
-                  function deletearchive(){
-                    var r = confirm("Are you sure you want to delete this?");
-                    
-                    if(r){
-                      window.location = "/archive/{{$id}}";
-                    }else{
-//                       document.write("OKAY.");
-                    }
-                  }
-                      function confirmDelete () {
-                        if (confirm('Are you sure you want to delete this exam?')) {
-                          return true;
-                        } else {
-                          return false;
-                        }
+                    function deletearchive()
+                    {
+                                      swal({
+                    title: "Delete this Group?",
+                    text: "This group will no longer be accessible once deleted.",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Yes",
+                    closeOnConfirm: false
+                  },
+                  function(){
+                    window.location = "/archive/{{$id}}";
+                  });  
                     }
                     
                   </script>
-                  
-                  <button onclick="deletearchive()" value="DELETE">DELETE</button>
-                  
+                  <button onclick="deletearchive()" value="DELETE"><i class="fa fa-trash" aria-hidden="true"></i></button>
                 </div>
             </div>
-          
         </div>
-                
     </div>
-  
 </div>
 
 <div class="container">
@@ -149,18 +191,17 @@
                 <div class="panel-heading">List of Exams/Quizzes for this group</div>
 
                 <div class="panel-body">
-                    <table>
-                      <tr>
-                         <th width=5%>ID</th>
-                        <th width =25%> Topic</th>
-                        <th width =25%> Duration</th>
-                        <th width =25%> Date</th>
-                        <th width=10%>View</th>
-                        <th width=10%>Delete</th>
+                    <table style="width: 100%; text-align: center" >
+                      <tr id="list" style="text-align: center;">
+                        <th style="text-align: center;" width=15%>Name</th>
+                        <th style="text-align: center;" width=20%> Topic</th>
+                        <th style="text-align: center;" width=15%> Duration</th>
+                        <th style="text-align: center;" width=20%> Date</th>
+                        <th style="text-align: center;" width=10%>View</th>
+                        <th style="text-align: center;" width=10%>Delete</th>
 
                       </tr>
-                        
-                    
+ 
                      <?php
                       $exams = DB::table('exams')->where('group_id', '=', $id)->get();
                   
@@ -171,27 +212,28 @@
                                   $exam_id = $exam->id;
                                   
                                   if($exam->duration < 60000) {
-                                    $duration = $exam->duration / 1000 ; 
+                                    $duration = round(($exam->duration / 1000), 2) ; 
                                     $time = 'Seconds';
                                   }
                                   else if($exam->duration < 3600000){
-                                  $duration = $exam->duration / 60000 ; 
+                                  $duration = round(($exam->duration / 60000), 2) ; 
                                   $time = 'Minutes';
                                   } else {
-                                  $duration = $exam->duration / 3600000 ; 
+                                  $duration = round(($exam->duration / 3600000), 2) ; 
                                   $time = 'Hours';
                                   }
                                   
-                               
                                   $availabledate = $exam->schedule;
                                   $topic = $exam->topic;
-                                    echo '<tr> 
-                                    <td> '.$exam_id .' </td>
-                                    <td> '.$topic.'</td>
-                                    <td> '.$duration. ' '.$time.' </td>
+																	$name = $exam->name;
+																	
+                                    echo '<tr id="list" style="align: justify;"> 
+                                    <td> '.$name .' </td>';
+                                   	echo '<td> '.$topic.'</td>';
+                                    echo '<td> '.$duration. ' '.$time.' </td>
                                     <td> '.$availabledate.' </td>
-                                    <td><a href="/viewexam/'.$exam_id.'">VIEW</a></td>
-                                    <td><a href="/deleteexam/'.$id.'/'.$exam_id.'" onclick="return confirmDelete();">DELETE</a></td>
+                                    <td align="center"><a href="/viewexam/'.$id.'/'.$exam_id.'"><i class="fa fa-search" aria-hidden="true"></i></a></td>
+                                    <td align="center"><a href="javascript:void(0)" onclick="confirmDelete('.$exam_id.');"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
                                     </tr>';
                                 }
                               }
@@ -200,33 +242,48 @@
                 </div>
               
               <div class="panel-body">
-                  
                   <script>
-                  function createQuiz(){
-                    var r = confirm("You will now be redirected to Questionnaire Creation Page. \nDo you want to continue?");
-                    
-                    if(r){
-                      window.location = "/createquiz/{{$id}}";
-                    }else{
-//                       document.write("OKAY.");
+                    function createQuiz()
+                    {
+                                      swal({
+                    title: "Go to Exam Creation Window?",
+                    text: "If yes, you will be redirected to a new page.",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Yes",
+                    closeOnConfirm: false
+                  },
+                  function(){
+                    window.location = "/createquiz/{{$id}}";
+                  });  
                     }
-                  }
+                  </script>
+                
+								<script>
+                    function confirmDelete(exam_id_pass)
+                    {
+                                      swal({
+                    title: "Delete this Exam/Quiz?",
+                    text: "This exam will no longer appear in your group exam list once it is deleted.",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Yes",
+                    closeOnConfirm: false
+                                       
+                  },
+                  function(){
+                       window.location = "/deleteexam/{{$id}}/"+exam_id_pass;              
+                  });  
+                    }
                   </script>
                   
                   <button onclick="createQuiz()" value="CREATE">Create New Questionnaire</button>
                   
-=======
-                    
-                  <?php
-                    echo '<a href="/archive/'.$id.'"><i class="fa fa-btn fa-trash"></i>Archive this group</a>';
-                  ?>
->>>>>>> b8dbc83003d74bbcad6f42be6a4a3550a5946e15
                 </div>
             </div>
-          
         </div>
-                
     </div>
-  
 </div>
 @endsection

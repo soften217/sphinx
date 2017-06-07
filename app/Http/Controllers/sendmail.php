@@ -72,6 +72,10 @@ class sendmail extends Controller
     public function test(){
       return view('welcome');
     }
+  
+    public function help(){
+      return view('mail');
+    }
 }
   
 

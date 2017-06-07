@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use DB;
+use Alert;
 
 class GroupController extends Controller
 {
@@ -25,7 +26,7 @@ class GroupController extends Controller
      */
     public function index()
     {
-        if (auth()->user()->isFaculty == 1)
+        if (auth()->user()->isFaculty == 1) 
         {
             return view('faculty/group');
         }
@@ -34,33 +35,33 @@ class GroupController extends Controller
             return view('student/group');
         }
     }
-
+  
     public function show($id)
     {
-
+      
         $data['id'] = $id;
-
+      
         $authenticated = FALSE;
-
+      
         $getmembers = DB::table('user_group')->where('group_id', '=', $id)->get();
-
+      
         $getexams = DB::table('exams')->where('group_id', '=', $id)->where('isArchived', '!=', 1)->get();
-
+      
         $members = array();
-
-
+     
+      
         $arraykey = 0;
         foreach($getmembers as $getmember)
         {
-
+          
             $user_info = DB::table('users')->where('id', '=', $getmember->user_id)->first();
-
+          
             $members[$arraykey]['name'] =  $user_info->name;
             $members[$arraykey]['id'] =  $user_info->id;
             $members[$arraykey]['isFaculty'] =  $user_info->isFaculty;
-
+          
 //             $userscores = DB::table('exam_user')->where('user_id', '=', $getmember->user_id)->get();
-
+          
 //             foreach($getexams as $getexam)
 //             {
 //               foreach($userscores as $userscore)
@@ -71,24 +72,24 @@ class GroupController extends Controller
 //                 }
 //               }
 //             }
-
+          
             $arraykey++;
         }
-
-        $data['exams'] = $getexams;
-
+      
+        $data['exams'] = $getexams;  
+      
         $data['members'] = $members;
-
+      
         $groups = DB::table('groups')->where('id', '=', $id)->first();
-
+      
         $code = $groups->code;
-
+      
         $data['code'] = $code;
-
+      
         if($groups->isArchived==0)
         {
           $user_groups = DB::table('user_group')->where('user_id', '=', auth()->user()->id)->get();
-
+              
                   foreach ($user_groups as $user_group) {
                           if($user_group->group_id == $groups->id)
                           {
@@ -98,8 +99,9 @@ class GroupController extends Controller
 
                 if($authenticated == TRUE)
                 {
-                  if (auth()->user()->isFaculty == 1)
+                  if (auth()->user()->isFaculty == 1) 
                   {
+                    
                       return view('faculty/group')->with($data);
                   }
                  else
@@ -109,43 +111,47 @@ class GroupController extends Controller
                 }
                 else
                 {
+                    Alert::error('You are not enrolled in this group.', 'Invalid Entry.');
                     return view('welcome');
                 }
         }
       else
       {
-        echo 'Sorry. This Group has already been archived.';
+        Alert::message('This Group has already been archived.', 'Sorry.');
+        return back()->withInput();
       }
-
-
+        
+        
     }
-
+  
     public function archive($id)
     {
         $data['id'] = $id;
-
+      
         $allowArchive = FALSE;
-
+      
       
         $group = DB::table('groups')->where('id', '=', $id)->first();
-
-        if($group->creator_id == auth()->user()->id)
+        
+        if($group->creator_id == auth()->user()->id)  
         {
           $allowArchive = TRUE;
         }
-
+      
       if($allowArchive == TRUE)
       {
         DB::table('groups')
             ->where('id', $id)
             ->update(['isArchived' => 1]);
-
-        return view('faculty/home');
+        
+        Alert::success('Group has been successfully archived.', 'Group Archived');
+        
+        return view('faculty/home'); 
       }
       else
       {
           return view('welcome');
       }
-
+      
     }
 }

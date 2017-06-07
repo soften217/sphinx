@@ -34,5 +34,11 @@ return [
         'key'    => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],
+  
+  'google' => array(
+'app_name' => 'iQuiz',
+'client_id' => '1004162098351-kqorh4c8sv9ko9qn4mg2fp5ugsi397pa.apps.googleusercontent.com',
+'client_secret' => 'J1T17lhXITVd8Z0OO4tvecXT',
+'api_key' => 'http://iquiz-jmccasusi249188.codeanyapp.com/handle/google'),
 
 ];

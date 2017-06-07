@@ -9,11 +9,11 @@
                     <form class="form-horizontal" role="form" method="POST" action="<?php echo e(url('/addgroup')); ?>">
                        <?php echo e(csrf_field()); ?>
 
-                       
+
                       PLEASE ENTER JOIN CODE:<br>
-                      <input type="text" name="code" value="">
+                      <input type="text" name="code" value="" class="form-control">
                       <br><br>
-                      <input type="submit" value="Submit">
+                      <input type="submit" value="Submit" class="form-control">
                     </form> 
                 </div>
             </div>

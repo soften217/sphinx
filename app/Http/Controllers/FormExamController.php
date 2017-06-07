@@ -6,6 +6,8 @@ use App\Http\Requests;
 use Illuminate\Http\Request;
 use DB;
 use Eloquent;
+use Alert;
+use DateTime;
 
 class FormExamController extends Controller
 {
@@ -43,7 +45,14 @@ class FormExamController extends Controller
             $group  = $request->input('group');
             $selected = $request->input('selecteditems');
             
+            $name = $request->input('name');
+            $topic = $request->input('topic');
             
+            $pointsPerObj = $request->input('objpoints');
+            $pointsPerSubj = $request->input('subjpoints');
+            
+            $totalObjPts = 0;
+            $totalSubjPts = 0;
             
             $hours = $request->input('hours');
             $minutes = $request->input('minutes');
@@ -68,23 +77,39 @@ class FormExamController extends Controller
            //echo $selected;
             
             $exam_id = DB::table('exams')->insertGetId(
-               ['group_id' =>  $group, 'duration' => $duration, 'creator_id' => auth()->user()->id, 'schedule' => $availabledate ]
+               ['group_id' =>  $group, 'duration' => $duration, 'creator_id' => auth()->user()->id, 'schedule' => $availabledate, 'name' => $name, 'topic' => $topic ]
               );
             
-            
+            $totalItems = 0;
             
            foreach($selected as $selectedquestion)
            {
-             $question = DB::table('questions')->where('content', '=', $selectedquestion)->first();
+             $possiblePoints = 1;
              
+             $question = DB::table('questions')->where('content', '=', $selectedquestion)->first();
              $question_id = $question->id;
              
+             if($question->type == "OBJECTIVE")
+             {
+               $possiblePoints = $pointsPerObj;
+               $totalObjPts += $pointsPerObj;
+             }
+             else
+             {
+               $possiblePoints = $pointsPerSubj;
+               $totalSubjPts += $pointsPerSubj;
+             }
+             
              $exam_questions = DB::table('exam_question')->insertGetId(
-              ['exam_id' => $exam_id, 'question_id' => $question_id]
+              ['exam_id' => $exam_id, 'question_id' => $question_id, 'possiblePoints' => $possiblePoints]
              );
+             
+             $totalItems++;
             }
+            
+            DB::table('exams')->where('id', '=', $exam_id)->update(['items' => $totalItems, 'totalObjPts' => $totalObjPts, 'totalSubjPts' => $totalSubjPts]);
                      
-                     echo 'Added successfully.';
+                     Alert::success('Exam has been created successfully!', 'Done!');
 
                       return back()->withInput();
               
@@ -131,8 +156,8 @@ class FormExamController extends Controller
         if (auth()->user()->isFaculty == 1) 
           {
             $exam = DB::table('exams')->where('id', '=', $exam_id)->update(['isArchived' => 1]);
-            echo 'DELETED SUCESSFULLY';
-            
+      
+            Alert::success('Exam has been deleted successfully!', 'Deletion Complete');
             
             return redirect()->action(
                   'GroupController@show', ['id' => $group_id]
@@ -170,9 +195,11 @@ class FormExamController extends Controller
   }
   
   
-    public function view($id)
+    public function view($group_id, $id)
     {
         $data['id'] = $id;
+      
+        $data['group_id'] = $group_id;
       
       $exam = DB::table('exams')->where('id', '=', $id)->first();
       
@@ -253,9 +280,14 @@ class FormExamController extends Controller
             
             $allowTake = false;
             
+            $date = $exam_group->schedule;
+            $now = new DateTime();
+            
+            $todaysDate = date_format($now, 'Y-m-d');
+            
             foreach($users_groups as $user_group)
             {
-              if($exam_group->group_id == $user_group->group_id)
+              if($exam_group->group_id == $user_group->group_id && (($date == $todaysDate)||$date==NULL))
               {
                 $allowTake = true;
               }
@@ -263,16 +295,21 @@ class FormExamController extends Controller
             
             if(!empty($users_exams))
             {
-              echo "You've already taken this exam!";
-              return back()->withInput();
+//               Alert::error('You\'ve already taken this exam!', 'Invalid Entry!');
+              return redirect('../viewexam/'.$id)->with($data);
             }
             else if($allowTake==false)
             {
-              echo "You're not allowed to take this exam!";
-              return back()->withInput();
+              
+              Alert::error('You\'re not allowed to take this exam!', 'Invalid Entry!');
+              return redirect('../group/'.$group_id)->with($data);
             }
                else
             {
+              $transactionID = DB::table('exam_user')->insertGetId(
+              ['user_id' =>  auth()->user()->id, 'exam_id' => $id, 'isTaken' => 1, 'rawScore' => 0, 'percentScore' => 0, 'toBeChecked' => 0]
+             );
+              
               return view('student/viewexam')->with($data);
             }
             

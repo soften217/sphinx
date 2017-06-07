@@ -13,7 +13,26 @@
                       <table style="border-collapse: separate; border-spacing: 10px;">
                       
                         <tr><td>Course:<br>
-                         &emsp;<input type="text" name="course" value="">
+<!--                          &emsp;<input type="text" name="course" value=""> -->
+                          &emsp;<select name="course">
+                          <?php
+                          
+                          $courses = DB::table('courses')->get();
+                          
+                          function cmpCourse($a, $b)
+                          {
+                            return strcmp($a->COURSE, $b->COURSE);
+                          }
+                          
+                        usort($courses, "cmpCourse");
+                          
+                          foreach($courses as $course)
+                          {
+                            echo '<option value='.$course->COURSE.'>'.$course->COURSE.'</option>';
+                          }
+                          
+                          ?>
+                          </select>
                         </td></tr>
                         
                         <tr><td>Section:<br>
